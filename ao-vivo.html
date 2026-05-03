@@ -235,9 +235,9 @@
 
     let currentVideoIndex = 0;
     let countdownInterval = null;
-    let countInterval = null;
     let liveStarted = false;
     let liveStartTimestamp = null;
+    let countsLoopStarted = false;
 
     function qs(selector) {
       return document.querySelector(selector);
@@ -246,7 +246,7 @@
     function getConfig() {
       return window.APP_CONFIG || {
         TEMPO_QR_SEGUNDOS: 90,
-        ATUALIZACAO_AO_VIVO_MS: 5000,
+        ATUALIZACAO_AO_VIVO_MS: 3000,
         APPS_SCRIPT_URL: ""
       };
     }
@@ -435,7 +435,8 @@
 
       const response = await fetch(url.toString(), {
         method: "GET",
-        mode: "cors"
+        mode: "cors",
+        cache: "no-store"
       });
 
       const json = await response.json();
@@ -496,14 +497,40 @@
       updateCounts();
 
       countdownInterval = setInterval(tickCountdown, 1000);
-      countInterval = setInterval(
-        updateCounts,
-        getConfig().ATUALIZACAO_AO_VIVO_MS || 5000
-      );
+
+      startCountsLoop();
+    }
+
+    function startCountsLoop() {
+      if (countsLoopStarted) return;
+
+      countsLoopStarted = true;
+
+      async function loop() {
+        await updateCounts();
+
+        setTimeout(function() {
+          loop();
+        }, getConfig().ATUALIZACAO_AO_VIVO_MS || 3000);
+      }
+
+      loop();
     }
 
     function resetTimer() {
       liveStartTimestamp = Date.now();
+
+      const timerEl = qs("#timer");
+      const statusEl = qs("#liveStatus");
+
+      if (timerEl) {
+        timerEl.classList.add("pulse");
+      }
+
+      if (statusEl) {
+        statusEl.textContent = "Quando o tempo acabar, vamos revelar a leitura coletiva da sala.";
+      }
+
       tickCountdown();
       updateCounts();
     }
@@ -533,15 +560,28 @@
     async function updateCounts() {
       const participantsEl = qs("#participantsCount");
       const playsEl = qs("#playsCount");
-      const statusEl = qs("#liveStatus");
+      const audioStatus = qs("#audioStatus");
 
       try {
         const summary = await fetchSummary();
 
-        participantsEl.textContent = summary.totalParticipantes || 0;
-        playsEl.textContent = summary.totalRespostas || 0;
+        if (participantsEl) {
+          participantsEl.textContent = summary.totalParticipantes || 0;
+        }
+
+        if (playsEl) {
+          playsEl.textContent = summary.totalRespostas || 0;
+        }
+
+        if (audioStatus) {
+          const agora = new Date().toLocaleTimeString("pt-BR");
+          audioStatus.textContent = "Trilha sonora em loop ativa. Dados atualizados às " + agora + ".";
+        }
+
       } catch (err) {
-        statusEl.textContent = "Modo local ou conexão indisponível. Os dados serão atualizados quando possível.";
+        if (audioStatus) {
+          audioStatus.textContent = "Trilha ativa. Aguardando nova leitura dos dados...";
+        }
       }
     }
 
