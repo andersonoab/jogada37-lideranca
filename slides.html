@@ -660,6 +660,19 @@
       }
     }
 
+    /* ============================================================
+       PRESENTER-ONLY: controles e notas que NÃO devem aparecer no
+       telão durante a palestra. Para reativar em modo de teste,
+       adicione a classe "presenter-mode" no body.
+       ============================================================ */
+    .presenter-only {
+      display: none !important;
+    }
+
+    body.presenter-mode .presenter-only {
+      display: revert !important;
+    }
+
   </style>
 </head>
 
@@ -713,31 +726,31 @@
 
       <div class="content two-cols">
         <div>
-          <div class="eyebrow">Experiência inicial</div>
+          <div class="eyebrow">Inteligência humana primeiro</div>
 
-          <h2>A palestra começou antes deste slide.</h2>
+          <h2>Vocês já fizeram a primeira jogada.</h2>
 
           <p class="body-text">
-            Nós começamos com dois vídeos, uma tela de tensão, um QR Code e uma pergunta simples:
+            Antes desta palestra começar, cada um de vocês escaneou um QR Code e respondeu a uma pergunta simples:
             qual é a sua Jogada 37 como líder?
           </p>
 
           <p class="body-text">
-            A ideia foi ouvir a inteligência humana da sala antes de falar sobre Inteligência Artificial.
+            Antes de falar sobre Inteligência Artificial, esta sala falou. E é a partir dessa leitura coletiva que vamos conduzir a próxima hora.
           </p>
         </div>
 
         <div class="highlight-box">
-          <h3>O que coletamos</h3>
+          <h3>As quatro dimensões da pesquisa</h3>
 
           <ul>
-            <li>Como o grupo se sente em relação à IA</li>
-            <li>Onde a IA pode apoiar a liderança</li>
-            <li>Quais desafios de comunicação aparecem no dia a dia</li>
+            <li>Como esta sala se sente em relação à IA</li>
+            <li>Onde a IA pode apoiar a liderança no dia a dia</li>
+            <li>Quais desafios de comunicação mais pesam hoje</li>
             <li>O que a IA nunca deve substituir no papel do líder</li>
           </ul>
 
-          <a class="slide-link" href="resultado.html" target="_blank">
+          <a class="slide-link presenter-only" href="resultado.html" target="_blank">
             Ver leitura coletiva da sala
           </a>
         </div>
@@ -747,7 +760,7 @@
     <!-- SLIDE 3 -->
     <section class="slide dark">
       <div class="content center">
-        <div class="eyebrow">Momento inicial</div>
+        <div class="eyebrow">O tabuleiro coletivo</div>
 
         <h2>O tabuleiro mudou.</h2>
 
@@ -759,7 +772,7 @@
           Agora vamos entender o que isso revela sobre liderança.
         </p>
 
-        <div class="button-group fake-buttons">
+        <div class="button-group fake-buttons presenter-only">
           <a href="ao-vivo.html" target="_blank">
             Abrir tela ao vivo
           </a>
@@ -768,10 +781,6 @@
             Abrir resultado
           </a>
         </div>
-
-        <p class="note">
-          A tela ao vivo mostra QR Code, contador, participantes conectados, jogadas registradas e trilha sonora.
-        </p>
       </div>
     </section>
 
@@ -904,7 +913,7 @@
       </div>
 
       <div class="content">
-        <div class="eyebrow">Modelo da palestra</div>
+        <div class="eyebrow">Quatro pilares de aplicação</div>
 
         <h2>Quatro formas práticas de usar IA como líder.</h2>
 
@@ -1001,7 +1010,7 @@
       </div>
 
       <div class="content">
-        <div class="eyebrow">Demonstração ao vivo</div>
+        <div class="eyebrow">Comunicação sob pressão</div>
 
         <h2>Prompt para resposta difícil.</h2>
 
@@ -1029,7 +1038,7 @@ Minha intenção como líder:
       </div>
 
       <div class="content">
-        <div class="eyebrow">Demonstração ao vivo</div>
+        <div class="eyebrow">Leitura emocional do time</div>
 
         <h2>Prompt para entender mensagens abertas.</h2>
 
@@ -1057,7 +1066,7 @@ Mensagens:
       </div>
 
       <div class="content">
-        <div class="eyebrow">Demonstração ao vivo</div>
+        <div class="eyebrow">Conversa estruturada</div>
 
         <h2>Prompt para preparar feedback.</h2>
 
@@ -1082,7 +1091,7 @@ follow-up.</code></pre>
     <!-- SLIDE 12 -->
     <section class="slide dark">
       <div class="content center">
-        <div class="eyebrow">Demonstração ao vivo</div>
+        <div class="eyebrow">Da teoria à tela</div>
 
         <h2>Agora vamos ver a IA trabalhando.</h2>
 
@@ -1094,7 +1103,7 @@ follow-up.</code></pre>
           É usar a IA para pensar melhor antes de responder.
         </p>
 
-        <div class="button-group fake-buttons">
+        <div class="button-group fake-buttons presenter-only">
           <a href="https://claude.ai/" target="_blank">
             Abrir Claude
           </a>
@@ -1113,14 +1122,14 @@ follow-up.</code></pre>
     <!-- SLIDE 13 -->
     <section class="slide">
       <div class="topline">
-        <span>Prompt ao vivo</span>
-        <strong>Exemplo para usar no Claude</strong>
+        <span>Prompt aplicado</span>
+        <strong>Cenário real do varejo</strong>
       </div>
 
       <div class="content">
-        <div class="eyebrow">Copiar e testar</div>
+        <div class="eyebrow">Caso típico de loja</div>
 
-        <h2>Prompt recomendado para demonstração.</h2>
+        <h2>Aplicado a uma situação que acontece toda semana.</h2>
 
         <pre class="prompt"><code>Atue como um líder de retail com inteligência emocional.
 
@@ -1217,17 +1226,17 @@ Quero acolher a preocupação, entender melhor a percepção da pessoa e explica
         </div>
 
         <div class="highlight-box">
-          <h3>O que vamos observar</h3>
+          <h3>Cinco dimensões da leitura coletiva</h3>
 
           <ul>
             <li>Participantes e jogadas registradas</li>
             <li>Sentimento predominante sobre IA</li>
-            <li>Média de preparo</li>
+            <li>% de líderes preparados para usar IA</li>
             <li>Principal desafio de comunicação</li>
             <li>O que a IA nunca deve substituir</li>
           </ul>
 
-          <a class="slide-link" href="resultado.html" target="_blank">
+          <a class="slide-link presenter-only" href="resultado.html" target="_blank">
             Abrir resultado
           </a>
         </div>
@@ -1237,7 +1246,7 @@ Quero acolher a preocupação, entender melhor a percepção da pessoa e explica
     <!-- SLIDE 16 -->
     <section class="slide dark">
       <div class="content center">
-        <div class="eyebrow">Chamada final</div>
+        <div class="eyebrow">Para a rotina</div>
 
         <h2>Leve a Jogada 37 para a rotina.</h2>
 
@@ -1249,7 +1258,7 @@ Quero acolher a preocupação, entender melhor a percepção da pessoa e explica
           Antes de decidir sozinho, olhe novamente o tabuleiro.
         </p>
 
-        <div class="button-group fake-buttons">
+        <div class="button-group fake-buttons presenter-only">
           <a href="slides.html" target="_blank">
             Rever slides
           </a>
@@ -1504,11 +1513,11 @@ Quero acolher a preocupação, entender melhor a percepção da pessoa e explica
 
         <div class="outlook-action-row">
           <div class="outlook-explain">
-            <strong>Próximo passo:</strong>
-            abrir o Claude para separar fato, sentimento, risco e próximo passo antes de responder.
+            <strong>O próximo movimento:</strong>
+            antes de responder, separar fato, sentimento, risco e próximo passo.
           </div>
 
-          <a class="slide-link" href="https://claude.ai/" target="_blank">
+          <a class="slide-link presenter-only" href="https://claude.ai/" target="_blank">
             Abrir Claude
           </a>
         </div>
@@ -1518,7 +1527,7 @@ Quero acolher a preocupação, entender melhor a percepção da pessoa e explica
 Quero responder este e-mail de forma clara, empática e firme.
 
 Gere:
-1. Tire um screenshot/print e dê uma resposta curta por e-mail;
+1. uma resposta curta e profissional para enviar por e-mail;
 2. o sentimento provável da remetente;
 3. cuidados antes de enviar.</code></pre>
       </div>
@@ -1528,7 +1537,7 @@ Gere:
     <!-- SLIDE 20 - FINAL: CHAMADA PARA AÇÃO -->
     <section class="slide dark final-call-slide">
       <div class="content center final-call-content">
-        <div class="eyebrow">Fechamento prático</div>
+        <div class="eyebrow">A liderança decide</div>
 
         <h2>A liderança agora decide a próxima jogada.</h2>
 
@@ -1565,7 +1574,7 @@ Gere:
           <strong>A pergunta é: qual será a sua Jogada 37?</strong>
         </div>
 
-        <div class="button-group fake-buttons final-buttons">
+        <div class="button-group fake-buttons final-buttons presenter-only">
           <a href="https://claude.ai/" target="_blank">
             Abrir Claude
           </a>
