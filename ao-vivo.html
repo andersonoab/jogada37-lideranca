@@ -51,7 +51,7 @@
     .video-frame-wrap {
       flex: 1;
       min-height: 65vh;
-      border: 1px solid rgba(255,255,255,0.18);
+      border: 1px solid rgba(255, 255, 255, 0.18);
       border-radius: 24px;
       overflow: hidden;
       background: #000000;
@@ -86,22 +86,18 @@
       display: none !important;
     }
 
-    .soundtrack-link {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+    .soundtrack-note {
       margin-top: 14px;
-      padding: 12px 18px;
-      border-radius: 999px;
-      text-decoration: none;
-      background: #003C64;
-      color: #ffffff;
-      font-weight: 700;
-      font-size: 15px;
+      color: #646464;
+      font-size: 13px;
+      line-height: 1.4;
     }
 
-    .soundtrack-link:hover {
-      filter: brightness(1.08);
+    .audio-status {
+      margin-top: 10px;
+      color: #6EB4DC;
+      font-size: 14px;
+      font-weight: 700;
     }
 
     .live-wrap {
@@ -117,7 +113,11 @@
     <div class="video-topbar">
       <div>
         <div class="video-kicker">Abertura da experiência</div>
-        <h1 id="videoTitle" class="video-title">Antes da Jogada 37</h1>
+
+        <h1 id="videoTitle" class="video-title">
+          Antes da Jogada 37
+        </h1>
+
         <p id="videoSubtitle" class="video-subtitle">
           Primeiro vídeo de abertura. Ao finalizar, avance para o próximo.
         </p>
@@ -187,12 +187,13 @@
           Abrir resultado
         </a>
 
-        <a
-          class="btn secondary"
-          href="https://www.youtube.com/watch?v=BNDWO-O3KwA"
-          target="_blank">
-          Abrir trilha de tensão
-        </a>
+        <button id="audioToggleBtn" class="btn secondary" type="button">
+          Pausar trilha
+        </button>
+      </div>
+
+      <div id="audioStatus" class="audio-status">
+        Trilha sonora pronta para iniciar ao abrir o QR Code.
       </div>
     </section>
 
@@ -205,13 +206,17 @@
         Faça sua Jogada 37 antes do tempo acabar.
       </div>
 
-      <a
-        class="soundtrack-link"
-        href="https://www.youtube.com/watch?v=BNDWO-O3KwA"
-        target="_blank">
-        Trilha sonora de tensão e espera
-      </a>
+      <div class="soundtrack-note">
+        Trilha de tensão em loop ativa durante a coleta.
+      </div>
     </aside>
+
+    <audio
+      id="tensionAudio"
+      src="Trilha%20em%20loop.mp3"
+      loop
+      preload="auto">
+    </audio>
   </main>
 
   <script>
@@ -261,12 +266,18 @@
 
     function mode(values) {
       const counts = {};
-      values.filter(Boolean).forEach((v) => counts[v] = (counts[v] || 0) + 1);
+
+      values.filter(Boolean).forEach(function(value) {
+        counts[value] = (counts[value] || 0) + 1;
+      });
 
       let best = "";
       let bestCount = 0;
 
-      Object.entries(counts).forEach(([key, count]) => {
+      Object.entries(counts).forEach(function(entry) {
+        const key = entry[0];
+        const count = entry[1];
+
         if (count > bestCount) {
           best = key;
           bestCount = count;
@@ -277,14 +288,26 @@
     }
 
     function average(values) {
-      const nums = values.map(Number).filter((n) => !Number.isNaN(n));
+      const nums = values
+        .map(Number)
+        .filter(function(value) {
+          return !Number.isNaN(value);
+        });
+
       if (!nums.length) return 0;
-      return nums.reduce((a, b) => a + b, 0) / nums.length;
+
+      return nums.reduce(function(acc, value) {
+        return acc + value;
+      }, 0) / nums.length;
     }
 
     function countBy(values) {
       const counts = {};
-      values.filter(Boolean).forEach((v) => counts[v] = (counts[v] || 0) + 1);
+
+      values.filter(Boolean).forEach(function(value) {
+        counts[value] = (counts[value] || 0) + 1;
+      });
+
       return counts;
     }
 
@@ -300,32 +323,102 @@
       };
 
       const total = rows.length;
-      const uniquePhones = new Set(rows.map(r => r.whatsapp).filter(Boolean));
-      const sentimentValues = rows.map(r => r.sentimento_ia);
-      const sentimentAvg = average(sentimentValues.map(v => sentimentScores[v] ?? 0));
+
+      const uniquePhones = new Set(
+        rows
+          .map(function(row) {
+            return row.whatsapp;
+          })
+          .filter(Boolean)
+      );
+
+      const sentimentValues = rows.map(function(row) {
+        return row.sentimento_ia;
+      });
+
+      const sentimentAvg = average(
+        sentimentValues.map(function(value) {
+          return sentimentScores[value] ?? 0;
+        })
+      );
 
       let sentimentReading = "neutro";
 
-      if (sentimentAvg >= 1) sentimentReading = "positivo";
-      if (sentimentAvg > 0 && sentimentAvg < 1) sentimentReading = "curioso com cautela";
-      if (sentimentAvg < 0 && sentimentAvg > -1) sentimentReading = "cauteloso";
-      if (sentimentAvg <= -1) sentimentReading = "preocupado";
+      if (sentimentAvg >= 1) {
+        sentimentReading = "positivo";
+      }
+
+      if (sentimentAvg > 0 && sentimentAvg < 1) {
+        sentimentReading = "curioso com cautela";
+      }
+
+      if (sentimentAvg < 0 && sentimentAvg > -1) {
+        sentimentReading = "cauteloso";
+      }
+
+      if (sentimentAvg <= -1) {
+        sentimentReading = "preocupado";
+      }
 
       return {
         totalParticipantes: uniquePhones.size || total,
         totalRespostas: total,
+
         sentimentoPredominante: mode(sentimentValues),
         sentimentoMedio: Number(sentimentAvg.toFixed(2)),
         leituraSentimento: sentimentReading,
-        mediaPreparo: Number(average(rows.map(r => r.preparo_ia)).toFixed(2)),
-        principalUsoIA: mode(rows.map(r => r.uso_ia)),
-        principalDesafio: mode(rows.map(r => r.desafio_comunicacao)),
-        principalLimite: mode(rows.map(r => r.limite_ia)),
+
+        mediaPreparo: Number(
+          average(
+            rows.map(function(row) {
+              return row.preparo_ia;
+            })
+          ).toFixed(2)
+        ),
+
+        principalUsoIA: mode(
+          rows.map(function(row) {
+            return row.uso_ia;
+          })
+        ),
+
+        principalDesafio: mode(
+          rows.map(function(row) {
+            return row.desafio_comunicacao;
+          })
+        ),
+
+        principalLimite: mode(
+          rows.map(function(row) {
+            return row.limite_ia;
+          })
+        ),
+
         porSentimento: countBy(sentimentValues),
-        porUsoIA: countBy(rows.map(r => r.uso_ia)),
-        porDesafio: countBy(rows.map(r => r.desafio_comunicacao)),
-        porLimite: countBy(rows.map(r => r.limite_ia)),
-        respostasAbertas: rows.map(r => r.jogada37).filter(Boolean)
+
+        porUsoIA: countBy(
+          rows.map(function(row) {
+            return row.uso_ia;
+          })
+        ),
+
+        porDesafio: countBy(
+          rows.map(function(row) {
+            return row.desafio_comunicacao;
+          })
+        ),
+
+        porLimite: countBy(
+          rows.map(function(row) {
+            return row.limite_ia;
+          })
+        ),
+
+        respostasAbertas: rows
+          .map(function(row) {
+            return row.jogada37;
+          })
+          .filter(Boolean)
       };
     }
 
@@ -357,6 +450,7 @@
     function formatSeconds(total) {
       const m = Math.floor(total / 60);
       const s = total % 60;
+
       return String(m).padStart(2, "0") + ":" + String(s).padStart(2, "0");
     }
 
@@ -387,6 +481,8 @@
     function showQrStage() {
       qs("#videoStage").classList.add("hidden");
       qs("#qrStage").classList.remove("hidden");
+
+      startTensionAudio();
       startLiveExperience();
     }
 
@@ -400,12 +496,16 @@
       updateCounts();
 
       countdownInterval = setInterval(tickCountdown, 1000);
-      countInterval = setInterval(updateCounts, getConfig().ATUALIZACAO_AO_VIVO_MS || 5000);
+      countInterval = setInterval(
+        updateCounts,
+        getConfig().ATUALIZACAO_AO_VIVO_MS || 5000
+      );
     }
 
     function resetTimer() {
       liveStartTimestamp = Date.now();
       tickCountdown();
+      updateCounts();
     }
 
     function tickCountdown() {
@@ -445,12 +545,86 @@
       }
     }
 
+    function startTensionAudio() {
+      const audio = qs("#tensionAudio");
+      const audioStatus = qs("#audioStatus");
+      const btn = qs("#audioToggleBtn");
+
+      if (!audio) return;
+
+      audio.volume = 0.35;
+
+      const playPromise = audio.play();
+
+      if (playPromise !== undefined) {
+        playPromise
+          .then(function() {
+            if (audioStatus) {
+              audioStatus.textContent = "Trilha sonora em loop ativa.";
+            }
+
+            if (btn) {
+              btn.textContent = "Pausar trilha";
+            }
+          })
+          .catch(function() {
+            if (audioStatus) {
+              audioStatus.textContent = "Clique em qualquer lugar da tela para iniciar a trilha sonora.";
+            }
+
+            document.body.addEventListener("click", function startOnClick() {
+              audio.play();
+
+              if (audioStatus) {
+                audioStatus.textContent = "Trilha sonora em loop ativa.";
+              }
+
+              if (btn) {
+                btn.textContent = "Pausar trilha";
+              }
+
+              document.body.removeEventListener("click", startOnClick);
+            });
+          });
+      }
+    }
+
+    function toggleTensionAudio() {
+      const audio = qs("#tensionAudio");
+      const btn = qs("#audioToggleBtn");
+      const audioStatus = qs("#audioStatus");
+
+      if (!audio || !btn) return;
+
+      if (audio.paused) {
+        audio.play();
+        btn.textContent = "Pausar trilha";
+
+        if (audioStatus) {
+          audioStatus.textContent = "Trilha sonora em loop ativa.";
+        }
+      } else {
+        audio.pause();
+        btn.textContent = "Tocar trilha";
+
+        if (audioStatus) {
+          audioStatus.textContent = "Trilha sonora pausada.";
+        }
+      }
+    }
+
     document.addEventListener("DOMContentLoaded", function() {
       updateVideoScreen();
 
       qs("#nextVideoBtn").addEventListener("click", goNextVideo);
       qs("#skipToQrBtn").addEventListener("click", showQrStage);
       qs("#resetTimerBtn").addEventListener("click", resetTimer);
+
+      const audioToggleBtn = qs("#audioToggleBtn");
+
+      if (audioToggleBtn) {
+        audioToggleBtn.addEventListener("click", toggleTensionAudio);
+      }
     });
   </script>
 </body>
