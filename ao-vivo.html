@@ -86,13 +86,6 @@
       display: none !important;
     }
 
-    .soundtrack-note {
-      margin-top: 14px;
-      color: #646464;
-      font-size: 13px;
-      line-height: 1.4;
-    }
-
     .audio-status {
       margin-top: 10px;
       color: #6EB4DC;
@@ -100,8 +93,11 @@
       font-weight: 700;
     }
 
-    .live-wrap {
-      display: grid;
+    .soundtrack-note {
+      margin-top: 14px;
+      color: #646464;
+      font-size: 13px;
+      line-height: 1.4;
     }
   </style>
 </head>
@@ -198,7 +194,8 @@
     </section>
 
     <aside class="qr-panel">
-      <img id="liveQr" src="qr-code.png" alt="QR Code da palestra" />
+      <!-- Não usar id="liveQr" aqui, porque o script.js antigo força assets/qr-code.png -->
+      <img src="qr-code.png" alt="QR Code da palestra" />
 
       <div class="qr-text">Escaneie e participe</div>
 
@@ -234,238 +231,23 @@
     ];
 
     let currentVideoIndex = 0;
-    let countdownInterval = null;
-    let liveStarted = false;
-    let liveStartTimestamp = null;
-    let countsLoopStarted = false;
+    let scriptJsLoaded = false;
 
-    function qs(selector) {
+    function localQs(selector) {
       return document.querySelector(selector);
-    }
-
-    function getConfig() {
-      return window.APP_CONFIG || {
-        TEMPO_QR_SEGUNDOS: 90,
-        ATUALIZACAO_AO_VIVO_MS: 3000,
-        APPS_SCRIPT_URL: ""
-      };
-    }
-
-    function getEndpoint() {
-      const config = getConfig();
-      return config.APPS_SCRIPT_URL || "";
-    }
-
-    function getLocalResponses() {
-      try {
-        return JSON.parse(localStorage.getItem("jogada37_respostas") || "[]");
-      } catch (err) {
-        return [];
-      }
-    }
-
-    function mode(values) {
-      const counts = {};
-
-      values.filter(Boolean).forEach(function(value) {
-        counts[value] = (counts[value] || 0) + 1;
-      });
-
-      let best = "";
-      let bestCount = 0;
-
-      Object.entries(counts).forEach(function(entry) {
-        const key = entry[0];
-        const count = entry[1];
-
-        if (count > bestCount) {
-          best = key;
-          bestCount = count;
-        }
-      });
-
-      return best || "-";
-    }
-
-    function average(values) {
-      const nums = values
-        .map(Number)
-        .filter(function(value) {
-          return !Number.isNaN(value);
-        });
-
-      if (!nums.length) return 0;
-
-      return nums.reduce(function(acc, value) {
-        return acc + value;
-      }, 0) / nums.length;
-    }
-
-    function countBy(values) {
-      const counts = {};
-
-      values.filter(Boolean).forEach(function(value) {
-        counts[value] = (counts[value] || 0) + 1;
-      });
-
-      return counts;
-    }
-
-    function buildSummary(rows) {
-      const sentimentScores = {
-        "Animação": 2,
-        "Curiosidade": 1,
-        "Neutro": 0,
-        "Dúvida": -1,
-        "Cautela": -1,
-        "Preocupação": -2,
-        "Medo": -2
-      };
-
-      const total = rows.length;
-
-      const uniquePhones = new Set(
-        rows
-          .map(function(row) {
-            return row.whatsapp;
-          })
-          .filter(Boolean)
-      );
-
-      const sentimentValues = rows.map(function(row) {
-        return row.sentimento_ia;
-      });
-
-      const sentimentAvg = average(
-        sentimentValues.map(function(value) {
-          return sentimentScores[value] ?? 0;
-        })
-      );
-
-      let sentimentReading = "neutro";
-
-      if (sentimentAvg >= 1) {
-        sentimentReading = "positivo";
-      }
-
-      if (sentimentAvg > 0 && sentimentAvg < 1) {
-        sentimentReading = "curioso com cautela";
-      }
-
-      if (sentimentAvg < 0 && sentimentAvg > -1) {
-        sentimentReading = "cauteloso";
-      }
-
-      if (sentimentAvg <= -1) {
-        sentimentReading = "preocupado";
-      }
-
-      return {
-        totalParticipantes: uniquePhones.size || total,
-        totalRespostas: total,
-
-        sentimentoPredominante: mode(sentimentValues),
-        sentimentoMedio: Number(sentimentAvg.toFixed(2)),
-        leituraSentimento: sentimentReading,
-
-        mediaPreparo: Number(
-          average(
-            rows.map(function(row) {
-              return row.preparo_ia;
-            })
-          ).toFixed(2)
-        ),
-
-        principalUsoIA: mode(
-          rows.map(function(row) {
-            return row.uso_ia;
-          })
-        ),
-
-        principalDesafio: mode(
-          rows.map(function(row) {
-            return row.desafio_comunicacao;
-          })
-        ),
-
-        principalLimite: mode(
-          rows.map(function(row) {
-            return row.limite_ia;
-          })
-        ),
-
-        porSentimento: countBy(sentimentValues),
-
-        porUsoIA: countBy(
-          rows.map(function(row) {
-            return row.uso_ia;
-          })
-        ),
-
-        porDesafio: countBy(
-          rows.map(function(row) {
-            return row.desafio_comunicacao;
-          })
-        ),
-
-        porLimite: countBy(
-          rows.map(function(row) {
-            return row.limite_ia;
-          })
-        ),
-
-        respostasAbertas: rows
-          .map(function(row) {
-            return row.jogada37;
-          })
-          .filter(Boolean)
-      };
-    }
-
-    async function fetchSummary() {
-      const endpoint = getEndpoint();
-
-      if (!endpoint) {
-        return buildSummary(getLocalResponses());
-      }
-
-      const url = new URL(endpoint);
-      url.searchParams.set("action", "summary");
-      url.searchParams.set("t", String(Date.now()));
-
-      const response = await fetch(url.toString(), {
-        method: "GET",
-        mode: "cors",
-        cache: "no-store"
-      });
-
-      const json = await response.json();
-
-      if (!response.ok || json.ok === false) {
-        throw new Error(json.message || "Falha ao ler resumo.");
-      }
-
-      return json.summary;
-    }
-
-    function formatSeconds(total) {
-      const m = Math.floor(total / 60);
-      const s = total % 60;
-
-      return String(m).padStart(2, "0") + ":" + String(s).padStart(2, "0");
     }
 
     function updateVideoScreen() {
       const video = VIDEOS[currentVideoIndex];
 
-      qs("#videoTitle").textContent = video.title;
-      qs("#videoSubtitle").textContent = video.subtitle;
-      qs("#videoFrame").src = video.src;
+      localQs("#videoTitle").textContent = video.title;
+      localQs("#videoSubtitle").textContent = video.subtitle;
+      localQs("#videoFrame").src = video.src;
 
       if (currentVideoIndex === VIDEOS.length - 1) {
-        qs("#nextVideoBtn").textContent = "Abrir QR Code";
+        localQs("#nextVideoBtn").textContent = "Abrir QR Code";
       } else {
-        qs("#nextVideoBtn").textContent = "Próximo vídeo";
+        localQs("#nextVideoBtn").textContent = "Próximo vídeo";
       }
     }
 
@@ -480,115 +262,51 @@
     }
 
     function showQrStage() {
-      qs("#videoStage").classList.add("hidden");
-      qs("#qrStage").classList.remove("hidden");
+      localQs("#videoStage").classList.add("hidden");
+      localQs("#qrStage").classList.remove("hidden");
+
+      /*
+        Ponto principal da correção:
+        resetamos o início do contador antes de carregar o script.js.
+        Assim o timer não começa durante os vídeos.
+      */
+      localStorage.setItem("jogada37_live_start", String(Date.now()));
 
       startTensionAudio();
-      startLiveExperience();
+      loadOriginalLiveScript();
     }
 
-    function startLiveExperience() {
-      if (liveStarted) return;
-
-      liveStarted = true;
-      liveStartTimestamp = Date.now();
-
-      tickCountdown();
-      updateCounts();
-
-      countdownInterval = setInterval(tickCountdown, 1000);
-
-      startCountsLoop();
-    }
-
-    function startCountsLoop() {
-      if (countsLoopStarted) return;
-
-      countsLoopStarted = true;
-
-      async function loop() {
-        await updateCounts();
-
-        setTimeout(function() {
-          loop();
-        }, getConfig().ATUALIZACAO_AO_VIVO_MS || 3000);
-      }
-
-      loop();
-    }
-
-    function resetTimer() {
-      liveStartTimestamp = Date.now();
-
-      const timerEl = qs("#timer");
-      const statusEl = qs("#liveStatus");
-
-      if (timerEl) {
-        timerEl.classList.add("pulse");
-      }
-
-      if (statusEl) {
-        statusEl.textContent = "Quando o tempo acabar, vamos revelar a leitura coletiva da sala.";
-      }
-
-      tickCountdown();
-      updateCounts();
-    }
-
-    function tickCountdown() {
-      const config = getConfig();
-      const timerEl = qs("#timer");
-      const statusEl = qs("#liveStatus");
-
-      const elapsed = Math.floor((Date.now() - liveStartTimestamp) / 1000);
-      const remaining = Math.max(0, config.TEMPO_QR_SEGUNDOS - elapsed);
-
-      timerEl.textContent = formatSeconds(remaining);
-
-      if (remaining === 0) {
-        statusEl.textContent = "Tempo encerrado. Analisando as jogadas da sala...";
-        timerEl.classList.remove("pulse");
-      } else if (remaining <= 15) {
-        statusEl.textContent = "Últimos segundos. O tabuleiro está prestes a mudar.";
-        timerEl.classList.add("pulse");
-      } else {
-        statusEl.textContent = "Quando o tempo acabar, vamos revelar a leitura coletiva da sala.";
-        timerEl.classList.add("pulse");
-      }
-    }
-
-    async function updateCounts() {
-      const participantsEl = qs("#participantsCount");
-      const playsEl = qs("#playsCount");
-      const audioStatus = qs("#audioStatus");
-
-      try {
-        const summary = await fetchSummary();
-
-        if (participantsEl) {
-          participantsEl.textContent = summary.totalParticipantes || 0;
+    function loadOriginalLiveScript() {
+      if (scriptJsLoaded) {
+        if (typeof initLivePage === "function") {
+          initLivePage();
         }
-
-        if (playsEl) {
-          playsEl.textContent = summary.totalRespostas || 0;
-        }
-
-        if (audioStatus) {
-          const agora = new Date().toLocaleTimeString("pt-BR");
-          audioStatus.textContent = "Trilha sonora em loop ativa. Dados atualizados às " + agora + ".";
-        }
-
-      } catch (err) {
-        if (audioStatus) {
-          audioStatus.textContent = "Trilha ativa. Aguardando nova leitura dos dados...";
-        }
+        return;
       }
+
+      scriptJsLoaded = true;
+
+      const script = document.createElement("script");
+      script.src = "script.js?v=" + Date.now();
+
+      script.onload = function() {
+        /*
+          O script.js original registra DOMContentLoaded.
+          Como estamos carregando ele depois, chamamos initLivePage manualmente.
+          Isso preserva o motor original dos contadores.
+        */
+        if (typeof initLivePage === "function") {
+          initLivePage();
+        }
+      };
+
+      document.body.appendChild(script);
     }
 
     function startTensionAudio() {
-      const audio = qs("#tensionAudio");
-      const audioStatus = qs("#audioStatus");
-      const btn = qs("#audioToggleBtn");
+      const audio = localQs("#tensionAudio");
+      const audioStatus = localQs("#audioStatus");
+      const btn = localQs("#audioToggleBtn");
 
       if (!audio) return;
 
@@ -630,9 +348,9 @@
     }
 
     function toggleTensionAudio() {
-      const audio = qs("#tensionAudio");
-      const btn = qs("#audioToggleBtn");
-      const audioStatus = qs("#audioStatus");
+      const audio = localQs("#tensionAudio");
+      const btn = localQs("#audioToggleBtn");
+      const audioStatus = localQs("#audioStatus");
 
       if (!audio || !btn) return;
 
@@ -656,11 +374,10 @@
     document.addEventListener("DOMContentLoaded", function() {
       updateVideoScreen();
 
-      qs("#nextVideoBtn").addEventListener("click", goNextVideo);
-      qs("#skipToQrBtn").addEventListener("click", showQrStage);
-      qs("#resetTimerBtn").addEventListener("click", resetTimer);
+      localQs("#nextVideoBtn").addEventListener("click", goNextVideo);
+      localQs("#skipToQrBtn").addEventListener("click", showQrStage);
 
-      const audioToggleBtn = qs("#audioToggleBtn");
+      const audioToggleBtn = localQs("#audioToggleBtn");
 
       if (audioToggleBtn) {
         audioToggleBtn.addEventListener("click", toggleTensionAudio);
