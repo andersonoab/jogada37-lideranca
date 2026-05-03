@@ -56,15 +56,18 @@
       overflow: hidden;
       background: #000000;
       box-shadow: 0 0 60px rgba(110, 180, 220, 0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .video-frame-wrap iframe {
+    .video-frame-wrap video {
       width: 100%;
       height: 100%;
-      min-height: 65vh;
-      border: 0;
+      max-height: 78vh;
       display: block;
       background: #000000;
+      object-fit: contain;
     }
 
     .video-actions {
@@ -111,7 +114,7 @@
         <div class="video-kicker">Abertura da experiência</div>
 
         <h1 id="videoTitle" class="video-title">
-          Antes da Jogada 37
+          AlphaGo: a Jogada 37
         </h1>
 
         <p id="videoSubtitle" class="video-subtitle">
@@ -125,17 +128,19 @@
     </div>
 
     <div class="video-frame-wrap">
-      <iframe
-        id="videoFrame"
-        src="https://drive.google.com/file/d/18Tn6-rfjK63_XDV5T6OB9bZeBetlmSKX/preview"
-        allow="autoplay; fullscreen"
-        allowfullscreen>
-      </iframe>
+      <video
+        id="videoPlayer"
+        src="assets/alphago-jogada37.mp4"
+        controls
+        preload="auto"
+        playsinline>
+        Seu navegador não suporta vídeo HTML5. Use Chrome, Edge ou Firefox.
+      </video>
     </div>
 
     <div class="video-actions">
       <div class="video-hint">
-        Dica: se o Google Drive não iniciar automaticamente, clique no play dentro do vídeo.
+        Dica: clique no play para iniciar. O segundo vídeo carrega automaticamente quando este terminar.
       </div>
 
       <button id="nextVideoBtn" class="btn" type="button">
@@ -198,7 +203,6 @@
     </section>
 
     <aside class="qr-panel">
-      <!-- Não usar id="liveQr" aqui, porque o script.js antigo força assets/qr-code.png -->
       <img src="qr-code.png" alt="QR Code da palestra" />
 
       <div class="qr-text">Escaneie e participe</div>
@@ -214,7 +218,7 @@
 
     <audio
       id="tensionAudio"
-      src="Trilha%20em%20loop.mp3"
+      src="assets/trilha-loop.mp3"
       loop
       preload="auto">
     </audio>
@@ -223,14 +227,14 @@
   <script>
     const VIDEOS = [
       {
-        title: "Antes da Jogada 37",
+        title: "AlphaGo: a Jogada 37",
         subtitle: "Primeiro vídeo de abertura. Ao finalizar, avance para o próximo.",
-        src: "https://drive.google.com/file/d/18Tn6-rfjK63_XDV5T6OB9bZeBetlmSKX/preview"
+        src: "assets/alphago-jogada37.mp4"
       },
       {
-        title: "A Jogada 37",
+        title: "A Jogada 37 da Liderança",
         subtitle: "Segundo vídeo. Depois dele, abriremos o QR Code da experiência.",
-        src: "https://drive.google.com/file/d/1QQ9mcvVMsvuvEPUzG-nN6Albmdoazz-s/preview"
+        src: "assets/a-jogada-37.mp4"
       }
     ];
 
@@ -243,10 +247,14 @@
 
     function updateVideoScreen() {
       const video = VIDEOS[currentVideoIndex];
+      const player = localQs("#videoPlayer");
 
       localQs("#videoTitle").textContent = video.title;
       localQs("#videoSubtitle").textContent = video.subtitle;
-      localQs("#videoFrame").src = video.src;
+
+      player.pause();
+      player.src = video.src;
+      player.load();
 
       if (currentVideoIndex === VIDEOS.length - 1) {
         localQs("#nextVideoBtn").textContent = "Abrir QR Code";
@@ -266,12 +274,16 @@
     }
 
     function showQrStage() {
+      const player = localQs("#videoPlayer");
+      if (player) {
+        player.pause();
+      }
+
       localQs("#videoStage").classList.add("hidden");
       localQs("#qrStage").classList.remove("hidden");
 
       /*
-        Ponto principal da correção:
-        resetamos o início do contador antes de carregar o script.js.
+        Resetamos o início do contador antes de carregar o script.js.
         Assim o timer não começa durante os vídeos.
       */
       localStorage.setItem("jogada37_live_start", String(Date.now()));
@@ -294,11 +306,6 @@
       script.src = "script.js?v=" + Date.now();
 
       script.onload = function() {
-        /*
-          O script.js original registra DOMContentLoaded.
-          Como estamos carregando ele depois, chamamos initLivePage manualmente.
-          Isso preserva o motor original dos contadores.
-        */
         if (typeof initLivePage === "function") {
           initLivePage();
         }
@@ -382,9 +389,19 @@
       localQs("#skipToQrBtn").addEventListener("click", showQrStage);
 
       const audioToggleBtn = localQs("#audioToggleBtn");
-
       if (audioToggleBtn) {
         audioToggleBtn.addEventListener("click", toggleTensionAudio);
+      }
+
+      /*
+        Auto-avanço: quando o vídeo atual terminar, avança automaticamente.
+        Útil em palco para o speaker não precisar clicar entre vídeos.
+      */
+      const player = localQs("#videoPlayer");
+      if (player) {
+        player.addEventListener("ended", function() {
+          goNextVideo();
+        });
       }
     });
   </script>
