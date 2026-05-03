@@ -102,6 +102,31 @@
       font-size: 13px;
       line-height: 1.4;
     }
+
+    @media (max-width: 768px) {
+      .video-stage {
+        padding: 18px;
+      }
+
+      .video-topbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .video-frame-wrap {
+        min-height: 46vh;
+        border-radius: 18px;
+      }
+
+      .video-actions {
+        align-items: stretch;
+      }
+
+      .video-actions .btn,
+      .video-topbar .btn {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 
@@ -130,9 +155,8 @@
     <div class="video-frame-wrap">
       <video
         id="videoPlayer"
-        src="https://github.com/andersonoab/jogada37-lideranca/blob/main/assets/A_Jogada_37.mp4"
         controls
-        preload="auto"
+        preload="metadata"
         playsinline>
         Seu navegador não suporta vídeo HTML5. Use Chrome, Edge ou Firefox.
       </video>
@@ -218,7 +242,7 @@
 
     <audio
       id="tensionAudio"
-      src="https://github.com/andersonoab/jogada37-lideranca/blob/main/assets/Trilha%20em%20loop.mp3"
+      src="assets/Trilha%20em%20loop.mp3"
       loop
       preload="auto">
     </audio>
@@ -229,12 +253,12 @@
       {
         title: "AlphaGo: a Jogada 37",
         subtitle: "Primeiro vídeo de abertura. Ao finalizar, avance para o próximo.",
-        src: "https://github.com/andersonoab/jogada37-lideranca/blob/main/assets/AlphaGo_A%20Jogada37.mp4"
+        src: "assets/AlphaGo_A%20Jogada37.mp4"
       },
       {
         title: "A Jogada 37 da Liderança",
         subtitle: "Segundo vídeo. Depois dele, abriremos o QR Code da experiência.",
-        src: "assets/a-jogada-37.mp4"
+        src: "assets/A_Jogada_37.mp4"
       }
     ];
 
@@ -282,10 +306,6 @@
       localQs("#videoStage").classList.add("hidden");
       localQs("#qrStage").classList.remove("hidden");
 
-      /*
-        Resetamos o início do contador antes de carregar o script.js.
-        Assim o timer não começa durante os vídeos.
-      */
       localStorage.setItem("jogada37_live_start", String(Date.now()));
 
       startTensionAudio();
@@ -393,10 +413,6 @@
         audioToggleBtn.addEventListener("click", toggleTensionAudio);
       }
 
-      /*
-        Auto-avanço: quando o vídeo atual terminar, avança automaticamente.
-        Útil em palco para o speaker não precisar clicar entre vídeos.
-      */
       const player = localQs("#videoPlayer");
       if (player) {
         player.addEventListener("ended", function() {
