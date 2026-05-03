@@ -15,183 +15,488 @@
        Anderson Marinho | Igarapé Digital
        ============================================================ -->
   <style>
+    /* OUTLOOK 365 SIMULATION v2 - estilo Microsoft + Sonova */
+
     .outlook-slide {
-      padding: 42px 56px 74px !important;
+      padding: 28px 48px 64px !important;
       overflow: hidden !important;
     }
 
     .outlook-slide::after {
-      width: 360px !important;
-      height: 360px !important;
-      right: -140px !important;
-      bottom: -140px !important;
+      width: 320px !important;
+      height: 320px !important;
+      right: -130px !important;
+      bottom: -130px !important;
     }
 
     .outlook-content {
-      height: calc(100vh - 160px) !important;
+      height: calc(100vh - 110px) !important;
       min-height: 0 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 10px !important;
+      overflow: hidden !important;
       justify-content: flex-start !important;
+    }
+
+    .outlook-content .eyebrow {
+      margin-bottom: 2px !important;
+    }
+
+    .outlook-content h2 {
+      font-size: clamp(26px, 3vw, 42px) !important;
+      line-height: 1.02 !important;
+      margin: 0 0 4px !important;
+      max-width: 1100px !important;
+    }
+
+    /* OUTLOOK APP CONTAINER */
+    .outlook-app {
+      flex: 1 !important;
+      min-height: 0 !important;
+      display: grid !important;
+      grid-template-rows: 36px 56px 1fr !important;
+      border: 1px solid #d1d1d1 !important;
+      border-radius: 10px !important;
+      overflow: hidden !important;
+      background: #faf9f8 !important;
+      box-shadow: 0 18px 40px rgba(0, 60, 100, 0.14) !important;
+      font-family: 'Segoe UI', Arial, sans-serif !important;
+      font-size: 12px !important;
+      color: #1f1f1f !important;
+    }
+
+    /* TOPBAR */
+    .ol-topbar {
+      background: #2b2b2b !important;
+      color: #ffffff !important;
+      display: grid !important;
+      grid-template-columns: auto 1fr auto !important;
+      align-items: center !important;
+      gap: 14px !important;
+      padding: 0 14px !important;
+    }
+
+    .ol-topbar-left {
+      display: flex !important;
+      align-items: center !important;
+      gap: 14px !important;
+    }
+
+    .ol-waffle {
+      display: grid !important;
+      grid-template-columns: repeat(3, 4px) !important;
+      grid-template-rows: repeat(3, 4px) !important;
+      gap: 2px !important;
+    }
+
+    .ol-waffle span {
+      background: #ffffff !important;
+      border-radius: 1px !important;
+      width: 4px !important;
+      height: 4px !important;
+      display: block !important;
+    }
+
+    .ol-brand {
+      font-weight: 800 !important;
+      font-size: 16px !important;
+      letter-spacing: 0.4px !important;
+      color: #ffffff !important;
+    }
+
+    .ol-app {
+      font-size: 14px !important;
+      opacity: 0.92 !important;
+      border-left: 1px solid rgba(255, 255, 255, 0.25) !important;
+      padding-left: 14px !important;
+      color: #ffffff !important;
+    }
+
+    .ol-search {
+      background: #3a3a3a !important;
+      border-radius: 4px !important;
+      padding: 6px 12px !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+      color: rgba(255, 255, 255, 0.78) !important;
+      font-size: 12px !important;
+      max-width: 460px !important;
+      margin: 0 auto !important;
+      width: 100% !important;
+    }
+
+    .ol-search svg {
+      flex-shrink: 0 !important;
+    }
+
+    .ol-topbar-right {
+      display: flex !important;
+      align-items: center !important;
+      gap: 10px !important;
+    }
+
+    .ol-avatar-top {
+      width: 28px !important;
+      height: 28px !important;
+      border-radius: 50% !important;
+      background: #0078d4 !important;
+      color: #ffffff !important;
+      font-size: 11px !important;
+      font-weight: 700 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      letter-spacing: 0 !important;
+    }
+
+    /* RIBBON */
+    .ol-ribbon {
+      background: #ffffff !important;
+      border-bottom: 1px solid #e1e1e1 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      padding: 4px 18px 0 !important;
+    }
+
+    .ol-tabs {
+      display: flex !important;
+      gap: 22px !important;
+      font-size: 12px !important;
+      color: #555555 !important;
+    }
+
+    .ol-tabs span {
+      padding: 4px 2px !important;
+      cursor: default !important;
+    }
+
+    .ol-tabs span.active {
+      color: #0078d4 !important;
+      font-weight: 700 !important;
+      border-bottom: 2px solid #0078d4 !important;
+    }
+
+    .ol-ribbon-actions {
+      display: flex !important;
+      gap: 16px !important;
+      padding: 4px 0 6px !important;
+    }
+
+    .ol-rib-btn {
+      display: flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      font-size: 11px !important;
+      color: #333333 !important;
+      white-space: nowrap !important;
+    }
+
+    .ol-rib-icon {
+      width: 14px !important;
+      height: 14px !important;
+      border-radius: 3px !important;
+      display: inline-block !important;
+      flex-shrink: 0 !important;
+    }
+
+    /* BODY: 4 cols */
+    .ol-body {
+      display: grid !important;
+      grid-template-columns: 44px 200px 290px 1fr !important;
+      min-height: 0 !important;
+      overflow: hidden !important;
+    }
+
+    /* APP RAIL */
+    .ol-rail {
+      background: #ffffff !important;
+      border-right: 1px solid #e1e1e1 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      padding: 10px 0 !important;
+      gap: 10px !important;
+    }
+
+    .ol-rail-icon {
+      width: 28px !important;
+      height: 28px !important;
+      border-radius: 4px !important;
+      background: #f0f0f0 !important;
+      border: 1px solid #d8d8d8 !important;
+    }
+
+    .ol-rail-icon.active {
+      background: #0078d4 !important;
+      border-color: #0078d4 !important;
+    }
+
+    /* FOLDERS */
+    .ol-folders {
+      background: #fafafa !important;
+      border-right: 1px solid #e1e1e1 !important;
+      padding: 12px 8px !important;
+      overflow: hidden !important;
+    }
+
+    .ol-fav-title {
+      font-size: 11px !important;
+      font-weight: 700 !important;
+      color: #555555 !important;
+      text-transform: none !important;
+      padding: 8px 8px 4px !important;
+      letter-spacing: 0 !important;
+      margin-bottom: 0 !important;
+    }
+
+    .ol-folder {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      padding: 5px 10px !important;
+      border-radius: 4px !important;
+      font-size: 12px !important;
+      color: #333333 !important;
+      margin-bottom: 1px !important;
+    }
+
+    .ol-folder.active {
+      background: #e1efff !important;
+      color: #0078d4 !important;
+      font-weight: 700 !important;
+    }
+
+    .ol-folder-count {
+      font-size: 11px !important;
+      color: #707070 !important;
+      font-weight: 600 !important;
+    }
+
+    .ol-folder.active .ol-folder-count {
+      color: #0078d4 !important;
+    }
+
+    /* MESSAGE LIST */
+    .ol-messages {
+      background: #ffffff !important;
+      border-right: 1px solid #e1e1e1 !important;
       overflow: hidden !important;
       display: flex !important;
       flex-direction: column !important;
     }
 
-    .outlook-content .eyebrow {
-      margin-bottom: 8px !important;
+    .ol-msg-tabs {
+      display: flex !important;
+      gap: 22px !important;
+      padding: 12px 16px 8px !important;
+      border-bottom: 1px solid #e1e1e1 !important;
+      font-size: 12px !important;
+      color: #555555 !important;
     }
 
-    .outlook-content h2 {
-      font-size: clamp(34px, 4vw, 58px) !important;
-      line-height: 1.02 !important;
-      margin-bottom: 18px !important;
-      max-width: 980px !important;
+    .ol-msg-tabs span {
+      padding-bottom: 6px !important;
     }
 
-    .outlook-sim {
-      display: grid !important;
-      grid-template-columns: 190px 280px 1fr !important;
-      height: 380px !important;
-      min-height: 380px !important;
-      max-height: 380px !important;
-      border: 1px solid #CCCCCC !important;
-      border-radius: 26px !important;
-      overflow: hidden !important;
-      box-shadow: 0 18px 50px rgba(0, 60, 100, 0.12) !important;
-      background: #ffffff !important;
-    }
-
-    .outlook-sidebar {
-      background: #003C64 !important;
-      color: #ffffff !important;
-      padding: 18px !important;
-      overflow: hidden !important;
-    }
-
-    .outlook-title {
-      font-size: 25px !important;
-      font-weight: 900 !important;
-      margin-bottom: 20px !important;
-      color: #ffffff !important;
-    }
-
-    .outlook-folder {
-      padding: 10px 12px !important;
-      border-radius: 12px !important;
-      margin-bottom: 7px !important;
-      color: rgba(255, 255, 255, 0.86) !important;
-      font-size: 14px !important;
-      line-height: 1.15 !important;
-    }
-
-    .outlook-folder.active {
-      background: rgba(255, 255, 255, 0.16) !important;
-      color: #ffffff !important;
-      font-weight: 800 !important;
-    }
-
-    .outlook-list {
-      background: #F2F2F2 !important;
-      border-right: 1px solid #CCCCCC !important;
-      padding: 12px !important;
-      overflow: hidden !important;
-    }
-
-    .mail-item {
-      background: #ffffff !important;
-      border: 1px solid #CCCCCC !important;
-      border-radius: 16px !important;
-      padding: 12px !important;
-      margin-bottom: 10px !important;
-    }
-
-    .mail-item.active {
-      border-color: #0083CA !important;
-      box-shadow: 0 0 0 3px rgba(0, 131, 202, 0.12) !important;
-    }
-
-    .mail-from {
-      font-size: 14px !important;
-      font-weight: 800 !important;
-      color: #003C64 !important;
-      margin-bottom: 5px !important;
-    }
-
-    .mail-subject {
-      font-size: 13px !important;
+    .ol-msg-tabs span.active {
+      color: #0078d4 !important;
       font-weight: 700 !important;
-      color: #333333 !important;
-      margin-bottom: 6px !important;
+      border-bottom: 2px solid #0078d4 !important;
     }
 
-    .mail-preview {
+    .ol-msg-group {
       font-size: 11px !important;
-      line-height: 1.28 !important;
-      color: #646464 !important;
+      font-weight: 700 !important;
+      color: #707070 !important;
+      padding: 8px 14px 4px !important;
+      background: #f8f8f8 !important;
     }
 
-    .outlook-reader {
-      background: #ffffff !important;
-      padding: 18px 20px !important;
+    .ol-msg-item {
+      display: grid !important;
+      grid-template-columns: 32px 1fr !important;
+      gap: 10px !important;
+      padding: 8px 14px !important;
+      border-bottom: 1px solid #f0f0f0 !important;
+    }
+
+    .ol-msg-item.active {
+      background: #f0f7ff !important;
+      border-left: 3px solid #0078d4 !important;
+      padding-left: 11px !important;
+    }
+
+    .ol-mavatar {
+      width: 32px !important;
+      height: 32px !important;
+      border-radius: 50% !important;
+      background: #707070 !important;
+      color: #ffffff !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      font-size: 11px !important;
+      font-weight: 700 !important;
+      flex-shrink: 0 !important;
+    }
+
+    .ol-mavatar.big {
+      width: 42px !important;
+      height: 42px !important;
+      font-size: 13px !important;
+    }
+
+    .ol-msg-info {
+      min-width: 0 !important;
       overflow: hidden !important;
     }
 
-    .mail-header {
+    .ol-msg-row1 {
       display: flex !important;
       justify-content: space-between !important;
-      align-items: flex-start !important;
-      gap: 14px !important;
-      padding-bottom: 12px !important;
-      border-bottom: 1px solid #CCCCCC !important;
-      margin-bottom: 12px !important;
+      align-items: center !important;
+      margin-bottom: 2px !important;
+      gap: 8px !important;
     }
 
-    .mail-subject-main {
-      font-size: 24px !important;
-      line-height: 1.1 !important;
-      color: #003C64 !important;
-      font-weight: 900 !important;
-      margin-bottom: 6px !important;
-    }
-
-    .mail-meta {
+    .ol-msg-from {
       font-size: 12px !important;
-      color: #646464 !important;
-    }
-
-    .mail-badge {
-      background: #7D0041 !important;
-      color: #ffffff !important;
-      border-radius: 999px !important;
-      padding: 7px 12px !important;
-      font-weight: 800 !important;
-      font-size: 12px !important;
+      font-weight: 700 !important;
+      color: #1f1f1f !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
       white-space: nowrap !important;
     }
 
-    .mail-body {
-      font-size: 15px !important;
-      line-height: 1.28 !important;
+    .ol-msg-time {
+      font-size: 10px !important;
+      color: #707070 !important;
+      white-space: nowrap !important;
+      flex-shrink: 0 !important;
+    }
+
+    .ol-msg-subject {
+      font-size: 12px !important;
       color: #333333 !important;
+      font-weight: 600 !important;
+      margin-bottom: 2px !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      white-space: nowrap !important;
     }
 
-    .mail-body p {
-      margin-bottom: 8px !important;
+    .ol-msg-item.active .ol-msg-subject {
+      color: #0078d4 !important;
     }
 
+    .ol-msg-preview {
+      font-size: 11px !important;
+      color: #707070 !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      white-space: nowrap !important;
+    }
+
+    /* READER */
+    .ol-reader {
+      background: #ffffff !important;
+      padding: 16px 20px !important;
+      overflow: hidden !important;
+      min-width: 0 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 10px !important;
+    }
+
+    .ol-reader-subject {
+      font-size: 18px !important;
+      font-weight: 800 !important;
+      color: #1f1f1f !important;
+      line-height: 1.15 !important;
+      letter-spacing: 0.2px !important;
+      margin: 0 !important;
+    }
+
+    .ol-reader-from-row {
+      display: grid !important;
+      grid-template-columns: 42px 1fr auto !important;
+      gap: 12px !important;
+      align-items: center !important;
+      padding-bottom: 10px !important;
+      border-bottom: 1px solid #f0f0f0 !important;
+    }
+
+    .ol-reader-from-name {
+      font-size: 13px !important;
+      font-weight: 700 !important;
+      color: #1f1f1f !important;
+      margin-bottom: 2px !important;
+    }
+
+    .ol-reader-meta {
+      font-size: 11px !important;
+      color: #707070 !important;
+      line-height: 1.3 !important;
+    }
+
+    .ol-reader-time {
+      font-size: 11px !important;
+      color: #707070 !important;
+      text-align: right !important;
+      white-space: nowrap !important;
+    }
+
+    .ol-retention {
+      background: #fffbe6 !important;
+      border: 1px solid #ffe58f !important;
+      border-radius: 4px !important;
+      padding: 6px 10px !important;
+      font-size: 10px !important;
+      color: #6b5a00 !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+    }
+
+    .ol-retention::before {
+      content: "" !important;
+      width: 6px !important;
+      height: 6px !important;
+      border-radius: 50% !important;
+      background: #d48806 !important;
+      flex-shrink: 0 !important;
+    }
+
+    .ol-reader-body {
+      font-size: 12.5px !important;
+      line-height: 1.5 !important;
+      color: #1f1f1f !important;
+      flex: 1 !important;
+      min-height: 0 !important;
+      overflow: hidden !important;
+    }
+
+    .ol-reader-body p {
+      margin: 0 0 8px !important;
+    }
+
+    /* ACTION ROW + PROMPT */
     .outlook-action-row {
       display: grid !important;
       grid-template-columns: 1fr auto !important;
       gap: 14px !important;
       align-items: center !important;
-      margin-top: 12px !important;
+      margin-top: 0 !important;
     }
 
     .outlook-explain {
       background: #F2F2F2 !important;
       border-left: 6px solid #0083CA !important;
-      border-radius: 16px !important;
-      padding: 12px 16px !important;
-      font-size: 16px !important;
+      border-radius: 14px !important;
+      padding: 10px 14px !important;
+      font-size: 14px !important;
       line-height: 1.3 !important;
       color: #003C64 !important;
     }
@@ -202,13 +507,13 @@
     }
 
     .outlook-prompt {
-      margin-top: 10px !important;
-      font-size: 13px !important;
-      line-height: 1.22 !important;
-      max-height: 150px !important;
+      margin-top: 0 !important;
+      font-size: 12px !important;
+      line-height: 1.25 !important;
+      max-height: 110px !important;
       min-height: 0 !important;
-      padding: 16px !important;
-      border-radius: 18px !important;
+      padding: 12px 16px !important;
+      border-radius: 14px !important;
       overflow: auto !important;
       background: #050505 !important;
       color: #ffffff !important;
@@ -216,27 +521,32 @@
       font-family: Consolas, Monaco, "Courier New", monospace !important;
     }
 
+    @media (max-width: 1280px) {
+      .ol-body {
+        grid-template-columns: 40px 180px 260px 1fr !important;
+      }
+      .outlook-app {
+        font-size: 11px !important;
+      }
+    }
+
     @media (max-width: 980px) {
       .outlook-slide {
         overflow: auto !important;
       }
-
       .outlook-content {
         height: auto !important;
         overflow: visible !important;
       }
-
-      .outlook-sim {
-        grid-template-columns: 1fr !important;
-        height: auto !important;
-        min-height: 0 !important;
-        max-height: none !important;
+      .outlook-app {
+        height: 600px !important;
       }
-
+      .ol-body {
+        grid-template-columns: 36px 150px 220px 1fr !important;
+      }
       .outlook-action-row {
         grid-template-columns: 1fr !important;
       }
-
       .outlook-prompt {
         max-height: none !important;
       }
@@ -897,7 +1207,7 @@ Quero acolher a preocupação, entender melhor a percepção da pessoa e explica
       </div>
     </section>
 
-    <!-- SLIDE 19 - ÚLTIMO: SIMULAÇÃO OUTLOOK -->
+    <!-- SLIDE 19 - ÚLTIMO: SIMULAÇÃO OUTLOOK 365 -->
     <section class="slide outlook-slide">
       <div class="topline">
         <span>Aplicação prática</span>
@@ -909,61 +1219,176 @@ Quero acolher a preocupação, entender melhor a percepção da pessoa e explica
 
         <h2>Antes de responder, olhe o tabuleiro.</h2>
 
-        <div class="outlook-sim">
-          <div class="outlook-sidebar">
-            <div class="outlook-title">Outlook</div>
-            <div class="outlook-folder active">Caixa de Entrada</div>
-            <div class="outlook-folder">Itens Enviados</div>
-            <div class="outlook-folder">Rascunhos</div>
-            <div class="outlook-folder">Arquivados</div>
-          </div>
-
-          <div class="outlook-list">
-            <div class="mail-item active">
-              <div class="mail-from">Colaboradora Loja</div>
-              <div class="mail-subject">Escala da semana</div>
-              <div class="mail-preview">
-                Queria entender melhor os critérios desta semana...
+        <div class="outlook-app">
+          <!-- TOPBAR Microsoft 365 -->
+          <div class="ol-topbar">
+            <div class="ol-topbar-left">
+              <div class="ol-waffle" aria-hidden="true">
+                <span></span><span></span><span></span>
+                <span></span><span></span><span></span>
+                <span></span><span></span><span></span>
               </div>
+
+              <div class="ol-brand">sonova</div>
+
+              <div class="ol-app">Outlook</div>
             </div>
 
-            <div class="mail-item">
-              <div class="mail-from">Operação</div>
-              <div class="mail-subject">Campanha da semana</div>
-              <div class="mail-preview">
-                Seguem os principais pontos da campanha...
-              </div>
+            <div class="ol-search">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="7"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+              </svg>
+              <span>Pesquisar</span>
             </div>
 
-            <div class="mail-item">
-              <div class="mail-from">RH</div>
-              <div class="mail-subject">Comunicado interno</div>
-              <div class="mail-preview">
-                Reforçamos o alinhamento...
-              </div>
+            <div class="ol-topbar-right">
+              <div class="ol-avatar-top">AS</div>
             </div>
           </div>
 
-          <div class="outlook-reader">
-            <div class="mail-header">
-              <div>
-                <div class="mail-subject-main">Escala da semana</div>
-                <div class="mail-meta">De: Colaboradora Loja</div>
-              </div>
-
-              <div class="mail-badge">Atenção</div>
+          <!-- RIBBON -->
+          <div class="ol-ribbon">
+            <div class="ol-tabs">
+              <span>Arquivo</span>
+              <span class="active">Página Inicial</span>
+              <span>Exibir</span>
+              <span>Ajuda</span>
             </div>
 
-            <div class="mail-body">
-              <p>Olá,</p>
+            <div class="ol-ribbon-actions">
+              <div class="ol-rib-btn">
+                <span class="ol-rib-icon" style="background:#0078d4"></span>Novo
+              </div>
+              <div class="ol-rib-btn">
+                <span class="ol-rib-icon" style="background:#a4262c"></span>Excluir
+              </div>
+              <div class="ol-rib-btn">
+                <span class="ol-rib-icon" style="background:#107c10"></span>Resposta
+              </div>
+              <div class="ol-rib-btn">
+                <span class="ol-rib-icon" style="background:#5c2d91"></span>Encaminhar
+              </div>
+              <div class="ol-rib-btn">
+                <span class="ol-rib-icon" style="background:#605e5c"></span>Mover
+              </div>
+            </div>
+          </div>
 
-              <p>
-                Queria entender melhor os critérios da escala. Sinto que algumas pessoas pegam horários difíceis com mais frequência.
-              </p>
+          <!-- BODY: 4 colunas -->
+          <div class="ol-body">
+            <!-- App rail -->
+            <div class="ol-rail">
+              <div class="ol-rail-icon active"></div>
+              <div class="ol-rail-icon"></div>
+              <div class="ol-rail-icon"></div>
+              <div class="ol-rail-icon"></div>
+              <div class="ol-rail-icon"></div>
+            </div>
 
-              <p>
-                Podemos conversar?
-              </p>
+            <!-- Folders -->
+            <div class="ol-folders">
+              <div class="ol-fav-title">Favoritos</div>
+
+              <div class="ol-folder active">
+                <span>Caixa de Entrada</span>
+                <span class="ol-folder-count">12</span>
+              </div>
+
+              <div class="ol-folder">
+                <span>Itens Enviados</span>
+              </div>
+
+              <div class="ol-folder">
+                <span>Rascunhos</span>
+                <span class="ol-folder-count">3</span>
+              </div>
+
+              <div class="ol-folder">
+                <span>Itens Excluídos</span>
+              </div>
+
+              <div class="ol-fav-title">Anderson Souza</div>
+
+              <div class="ol-folder">
+                <span>Operação RH</span>
+              </div>
+
+              <div class="ol-folder">
+                <span>Comunicação Interna</span>
+              </div>
+            </div>
+
+            <!-- Message list -->
+            <div class="ol-messages">
+              <div class="ol-msg-tabs">
+                <span class="active">Destaques</span>
+                <span>Outros</span>
+              </div>
+
+              <div class="ol-msg-group">Hoje</div>
+
+              <div class="ol-msg-item active">
+                <div class="ol-mavatar" style="background:#7d0041">CL</div>
+                <div class="ol-msg-info">
+                  <div class="ol-msg-row1">
+                    <span class="ol-msg-from">Colaboradora Loja</span>
+                    <span class="ol-msg-time">14:32</span>
+                  </div>
+                  <div class="ol-msg-subject">Escala da semana</div>
+                  <div class="ol-msg-preview">Queria entender melhor os critérios da escala...</div>
+                </div>
+              </div>
+
+              <div class="ol-msg-item">
+                <div class="ol-mavatar" style="background:#005a64">OP</div>
+                <div class="ol-msg-info">
+                  <div class="ol-msg-row1">
+                    <span class="ol-msg-from">Operação</span>
+                    <span class="ol-msg-time">11:08</span>
+                  </div>
+                  <div class="ol-msg-subject">Campanha da semana</div>
+                  <div class="ol-msg-preview">Seguem os principais pontos da campanha...</div>
+                </div>
+              </div>
+
+              <div class="ol-msg-group">Ontem</div>
+
+              <div class="ol-msg-item">
+                <div class="ol-mavatar" style="background:#0083ca">RH</div>
+                <div class="ol-msg-info">
+                  <div class="ol-msg-row1">
+                    <span class="ol-msg-from">RH Sonova</span>
+                    <span class="ol-msg-time">Sex, 16:45</span>
+                  </div>
+                  <div class="ol-msg-subject">Comunicado interno</div>
+                  <div class="ol-msg-preview">Reforçamos o alinhamento das diretrizes...</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Reader -->
+            <div class="ol-reader">
+              <div class="ol-reader-subject">ESCALA DA SEMANA</div>
+
+              <div class="ol-reader-from-row">
+                <div class="ol-mavatar big" style="background:#7d0041">CL</div>
+                <div>
+                  <div class="ol-reader-from-name">Colaboradora Loja</div>
+                  <div class="ol-reader-meta">Para: Liderança Loja</div>
+                </div>
+                <div class="ol-reader-time">Hoje 14:32</div>
+              </div>
+
+              <div class="ol-retention">
+                Retenção: Política Sonova RH (2 anos). Expira em: 03/05/2028
+              </div>
+
+              <div class="ol-reader-body">
+                <p>Olá,</p>
+                <p>Queria entender melhor os critérios da escala. Sinto que algumas pessoas pegam horários difíceis com mais frequência.</p>
+                <p>Podemos conversar?</p>
+              </div>
             </div>
           </div>
         </div>
