@@ -1,5 +1,5 @@
 const APP_CONFIG = {
-  SITE_URL: "https://seu-usuario.github.io/jogada37-lideranca/",
+  SITE_URL: "https://andersonoab.github.io/jogada37-lideranca/",
   APPS_SCRIPT_URL: "",
   EVENTO: "A Jogada 37 da Liderança",
   EMPRESA: "Sonova Retail",
