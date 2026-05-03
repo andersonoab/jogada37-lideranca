@@ -662,117 +662,131 @@ Quero acolher a preocupação, entender melhor a percepção da pessoa e explica
       </div>
     </section>
 
-    <!-- SLIDE 19 - ÚLTIMO: SIMULAÇÃO OUTLOOK -->
-    <section class="slide outlook-slide">
-      <div class="topline">
+    <!-- SLIDE 19 - ÚLTIMO: SIMULAÇÃO OUTLOOK REALISTA -->
+    <section class="slide outlook-slide outlook-real">
+      <div class="topline outlook-topline">
         <span>Simulação prática final</span>
         <strong>Outlook + Claude</strong>
       </div>
 
-      <div class="content outlook-content">
-        <div class="eyebrow">Caixa de entrada do líder</div>
-
-        <h2>Um e-mail difícil chegou. E agora?</h2>
-
-        <div class="outlook-sim">
-          <div class="outlook-sidebar">
-            <div class="outlook-title">Outlook</div>
-            <div class="outlook-folder active">Caixa de Entrada</div>
-            <div class="outlook-folder">Itens Enviados</div>
-            <div class="outlook-folder">Rascunhos</div>
-            <div class="outlook-folder">Arquivados</div>
+      <div class="content outlook-content outlook-real-content">
+        <div class="outlook-headline">
+          <div>
+            <div class="eyebrow">Caixa de entrada do líder</div>
+            <h2>Um e-mail difícil chegou. E agora?</h2>
           </div>
 
-          <div class="outlook-list">
-            <div class="mail-item active">
-              <div class="mail-from">Colaboradora Loja</div>
-              <div class="mail-subject">Escala e cobrança de metas</div>
-              <div class="mail-preview">
-                Gostaria de entender melhor os critérios da escala desta semana...
-              </div>
-            </div>
-
-            <div class="mail-item">
-              <div class="mail-from">Operação</div>
-              <div class="mail-subject">Campanha da semana</div>
-              <div class="mail-preview">
-                Seguem os principais pontos da campanha...
-              </div>
-            </div>
-
-            <div class="mail-item">
-              <div class="mail-from">RH</div>
-              <div class="mail-subject">Comunicado interno</div>
-              <div class="mail-preview">
-                Reforçamos a importância do alinhamento...
-              </div>
-            </div>
-          </div>
-
-          <div class="outlook-reader">
-            <div class="mail-header">
-              <div>
-                <div class="mail-subject-main">Escala e cobrança de metas</div>
-                <div class="mail-meta">De: Colaboradora Loja | Para: Liderança</div>
-              </div>
-
-              <div class="mail-badge">Atenção</div>
-            </div>
-
-            <div class="mail-body">
-              <p>Olá,</p>
-
-              <p>
-                Gostaria de entender melhor os critérios da escala desta semana.
-              </p>
-
-              <p>
-                Tenho sentido que algumas pessoas acabam ficando com horários mais difíceis com mais frequência,
-                enquanto outras parecem ser menos impactadas.
-              </p>
-
-              <p>
-                Além disso, a cobrança por metas tem sido feita de forma muito intensa,
-                mas nem sempre sentimos clareza sobre prioridades, campanhas e expectativas do dia.
-              </p>
-
-              <p>
-                Não estou dizendo que não quero colaborar, mas gostaria que isso fosse olhado com mais equilíbrio.
-              </p>
-
-              <p>Obrigada.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="outlook-action-row">
-          <div class="outlook-explain">
-            <strong>Próximo passo:</strong>
-            abrir o Claude e pedir apoio para separar fato, sentimento, risco e próximo passo.
-          </div>
-
-          <a class="slide-link" href="https://claude.ai/" target="_blank">
+          <a class="slide-link outlook-claude-link" href="https://claude.ai/" target="_blank">
             Abrir Claude
           </a>
         </div>
 
-        <pre class="prompt outlook-prompt"><code>Atue como um líder de retail com inteligência emocional.
+        <div class="outlook-window" aria-label="Simulação visual do Outlook">
+          <div class="outlook-appbar">
+            <div class="outlook-app-name">Outlook</div>
+            <div class="outlook-search">Pesquisar e-mail, pessoas e arquivos</div>
+            <div class="outlook-account">Liderança Sonova</div>
+          </div>
 
-Preciso responder o e-mail acima de forma clara, empática, firme e profissional.
+          <div class="outlook-commandbar">
+            <button type="button">Novo e-mail</button>
+            <button type="button">Responder</button>
+            <button type="button">Encaminhar</button>
+            <button type="button">Arquivar</button>
+            <button type="button">Marcar como lido</button>
+          </div>
 
-Objetivo:
-- acolher a percepção da colaboradora;
-- não assumir erro antes de verificar;
-- explicar que escala e metas seguem critérios da operação;
-- evitar tom defensivo;
-- não prometer mudança imediata;
-- propor uma conversa objetiva;
-- manter postura de liderança responsável.
+          <div class="outlook-grid">
+            <aside class="outlook-rail">
+              <div class="rail-item active">Mail</div>
+              <div class="rail-item">Calendar</div>
+              <div class="rail-item">People</div>
+              <div class="rail-item">Files</div>
+            </aside>
 
-Gere:
-1. uma resposta curta por e-mail;
-2. uma análise do sentimento presente;
-3. os cuidados antes de enviar.</code></pre>
+            <aside class="outlook-folders">
+              <div class="folder-heading">Pastas</div>
+              <div class="folder-row active"><span>Caixa de Entrada</span><strong>12</strong></div>
+              <div class="folder-row"><span>Itens Enviados</span></div>
+              <div class="folder-row"><span>Rascunhos</span><strong>3</strong></div>
+              <div class="folder-row"><span>Arquivados</span></div>
+              <div class="folder-row"><span>Equipe Loja</span></div>
+              <div class="folder-row"><span>RH e Operações</span></div>
+            </aside>
+
+            <section class="outlook-inbox">
+              <div class="inbox-title-row">
+                <strong>Caixa de Entrada</strong>
+                <span>Filtrar</span>
+              </div>
+
+              <article class="inbox-card active">
+                <div class="mail-from">Colaboradora Loja</div>
+                <div class="mail-subject">Escala e cobrança de metas</div>
+                <div class="mail-preview">Gostaria de entender melhor os critérios da escala desta semana...</div>
+                <div class="mail-time">Hoje, 09:42</div>
+              </article>
+
+              <article class="inbox-card">
+                <div class="mail-from">Operação Retail</div>
+                <div class="mail-subject">Campanha da semana</div>
+                <div class="mail-preview">Seguem os principais pontos da campanha e prioridades...</div>
+                <div class="mail-time">Hoje, 08:10</div>
+              </article>
+
+              <article class="inbox-card">
+                <div class="mail-from">RH Sonova</div>
+                <div class="mail-subject">Comunicado interno</div>
+                <div class="mail-preview">Reforçamos a importância do alinhamento com os times...</div>
+                <div class="mail-time">Ontem, 17:28</div>
+              </article>
+            </section>
+
+            <section class="outlook-reading-pane">
+              <div class="reading-header">
+                <div>
+                  <div class="reading-subject">Escala e cobrança de metas</div>
+                  <div class="reading-meta">De: Colaboradora Loja &lt;loja@exemplo.com&gt;</div>
+                  <div class="reading-meta">Para: Liderança Sonova</div>
+                </div>
+
+                <div class="reading-actions">
+                  <button type="button">Responder</button>
+                  <button type="button">Encaminhar</button>
+                </div>
+              </div>
+
+              <div class="reading-body">
+                <p>Olá,</p>
+                <p>Gostaria de entender melhor os critérios da escala desta semana.</p>
+                <p>Tenho sentido que algumas pessoas acabam ficando com horários mais difíceis com mais frequência, enquanto outras parecem ser menos impactadas.</p>
+                <p>Além disso, a cobrança por metas tem sido feita de forma muito intensa, mas nem sempre sentimos clareza sobre prioridades, campanhas e expectativas do dia.</p>
+                <p>Não estou dizendo que não quero colaborar, mas gostaria que isso fosse olhado com mais equilíbrio.</p>
+                <p>Obrigada.</p>
+              </div>
+
+              <div class="reply-draft">
+                <div class="reply-title">Rascunho com apoio da IA</div>
+                <p>Entendo sua percepção e obrigado por trazer esse ponto. Antes de qualquer conclusão, vou revisar os critérios aplicados na escala e na comunicação das metas. Vamos conversar hoje para entender os fatos, alinhar expectativas e definir um próximo passo claro.</p>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        <div class="outlook-bottom-grid">
+          <div class="outlook-explain outlook-final-call">
+            <strong>Mensagem da demonstração:</strong>
+            a IA ajuda a organizar clareza, empatia, risco e próximo passo. A decisão continua sendo da liderança.
+          </div>
+
+          <pre class="prompt outlook-prompt outlook-mini-prompt"><code>Prompt para usar no Claude:
+Atue como um líder de retail com inteligência emocional.
+Analise o e-mail acima e gere:
+1. resposta curta e profissional;
+2. sentimento predominante;
+3. risco de comunicação;
+4. próximo passo seguro.</code></pre>
+        </div>
       </div>
     </section>
 

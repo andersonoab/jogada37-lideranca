@@ -611,232 +611,412 @@ footer {
   }
 }
 
+
 /* ============================================================
-   CORREÇÃO FINAL - SLIDE OUTLOOK
+   SLIDE FINAL - OUTLOOK REALISTA
    A Jogada 37 da Liderança
    Anderson Marinho | Igarapé Digital
-
-   Este bloco substitui o arquivo slides_outlook_final_css_append.css.
-   Mantenha tudo em um único arquivo: slides.css.
    ============================================================ */
 
-.outlook-slide {
-  padding: 42px 56px 74px !important;
+.outlook-real {
+  padding: 34px 44px 70px !important;
+  background: #F5F6F8 !important;
   overflow: hidden !important;
 }
 
-.outlook-slide::after {
-  width: 360px !important;
-  height: 360px !important;
-  right: -140px !important;
-  bottom: -140px !important;
+.outlook-real::after {
+  display: none !important;
 }
 
-.outlook-content {
-  height: calc(100vh - 160px) !important;
+.outlook-topline {
+  margin-bottom: 18px !important;
+  height: 28px !important;
+}
+
+.outlook-real-content {
+  height: calc(100vh - 132px) !important;
   min-height: 0 !important;
   justify-content: flex-start !important;
   overflow: hidden !important;
 }
 
-.outlook-content .eyebrow {
-  margin-bottom: 8px !important;
+.outlook-headline {
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  gap: 22px !important;
+  margin-bottom: 14px !important;
 }
 
-.outlook-content h2 {
-  font-size: clamp(34px, 4vw, 58px) !important;
+.outlook-headline .eyebrow {
+  margin-bottom: 6px !important;
+}
+
+.outlook-headline h2 {
+  font-size: clamp(32px, 3.7vw, 52px) !important;
   line-height: 1.02 !important;
-  margin-bottom: 18px !important;
+  margin-bottom: 0 !important;
+  color: var(--sonova-navy) !important;
   max-width: 980px !important;
 }
 
-.outlook-sim {
+.outlook-claude-link {
+  margin-top: 6px !important;
+  white-space: nowrap !important;
+  box-shadow: 0 10px 26px rgba(0, 131, 202, 0.18) !important;
+}
+
+.outlook-window {
+  height: 520px !important;
+  max-height: 520px !important;
+  min-height: 520px !important;
+  border: 1px solid #D0D7DE !important;
+  border-radius: 18px !important;
+  overflow: hidden !important;
+  background: #ffffff !important;
+  box-shadow: 0 24px 60px rgba(0, 60, 100, 0.18) !important;
+}
+
+.outlook-appbar {
+  height: 50px !important;
+  background: #0078D4 !important;
+  color: #ffffff !important;
   display: grid !important;
-  grid-template-columns: 190px 280px 1fr !important;
-  height: 380px !important;
-  min-height: 380px !important;
-  max-height: 380px !important;
-  border: 1px solid var(--border) !important;
-  border-radius: 26px !important;
-  overflow: hidden !important;
-  box-shadow: 0 18px 50px rgba(0, 60, 100, 0.12) !important;
-  background: #ffffff !important;
+  grid-template-columns: 180px 1fr 190px !important;
+  align-items: center !important;
+  gap: 16px !important;
+  padding: 0 18px !important;
 }
 
-.outlook-sidebar {
-  background: #003C64 !important;
-  color: #ffffff !important;
-  padding: 18px !important;
-  overflow: hidden !important;
-}
-
-.outlook-title {
-  font-size: 25px !important;
+.outlook-app-name {
+  font-size: 23px !important;
   font-weight: 900 !important;
-  margin-bottom: 20px !important;
-  color: #ffffff !important;
+  letter-spacing: 0.2px !important;
 }
 
-.outlook-folder {
-  padding: 10px 12px !important;
-  border-radius: 12px !important;
-  margin-bottom: 7px !important;
-  color: rgba(255, 255, 255, 0.86) !important;
-  font-size: 14px !important;
-  line-height: 1.15 !important;
-}
-
-.outlook-folder.active {
-  background: rgba(255, 255, 255, 0.16) !important;
-  color: #ffffff !important;
-  font-weight: 800 !important;
-}
-
-.outlook-list {
-  background: #F2F2F2 !important;
-  border-right: 1px solid var(--border) !important;
-  padding: 12px !important;
-  overflow: hidden !important;
-}
-
-.mail-item {
-  background: #ffffff !important;
-  border: 1px solid var(--border) !important;
-  border-radius: 16px !important;
-  padding: 12px !important;
-  margin-bottom: 10px !important;
-}
-
-.mail-item.active {
-  border-color: #0083CA !important;
-  box-shadow: 0 0 0 3px rgba(0, 131, 202, 0.12) !important;
-}
-
-.mail-from {
-  font-size: 14px !important;
-  font-weight: 800 !important;
-  color: #003C64 !important;
-  margin-bottom: 5px !important;
-}
-
-.mail-subject {
-  font-size: 13px !important;
-  font-weight: 700 !important;
-  color: #333333 !important;
-  margin-bottom: 6px !important;
-}
-
-.mail-preview {
-  font-size: 11px !important;
-  line-height: 1.28 !important;
-  color: #646464 !important;
-}
-
-.outlook-reader {
-  background: #ffffff !important;
-  padding: 18px 20px !important;
-  overflow: hidden !important;
-}
-
-.mail-header {
+.outlook-search {
+  height: 32px !important;
+  border-radius: 6px !important;
+  background: rgba(255, 255, 255, 0.96) !important;
+  color: #4A4A4A !important;
   display: flex !important;
-  justify-content: space-between !important;
-  align-items: flex-start !important;
-  gap: 14px !important;
-  padding-bottom: 12px !important;
-  border-bottom: 1px solid var(--border) !important;
+  align-items: center !important;
+  padding: 0 14px !important;
+  font-size: 13px !important;
+}
+
+.outlook-account {
+  font-size: 13px !important;
+  text-align: right !important;
+  opacity: 0.96 !important;
+  font-weight: 700 !important;
+}
+
+.outlook-commandbar {
+  height: 44px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 0 14px !important;
+  background: #FFFFFF !important;
+  border-bottom: 1px solid #E1E4E8 !important;
+}
+
+.outlook-commandbar button,
+.reading-actions button {
+  border: 1px solid #D0D7DE !important;
+  background: #FFFFFF !important;
+  color: #1F2328 !important;
+  border-radius: 6px !important;
+  padding: 7px 10px !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+}
+
+.outlook-commandbar button:first-child {
+  background: #0078D4 !important;
+  color: #FFFFFF !important;
+  border-color: #0078D4 !important;
+}
+
+.outlook-grid {
+  display: grid !important;
+  grid-template-columns: 70px 210px 315px 1fr !important;
+  height: 426px !important;
+  min-height: 426px !important;
+}
+
+.outlook-rail {
+  background: #F3F2F1 !important;
+  border-right: 1px solid #E1E4E8 !important;
+  padding: 12px 8px !important;
+}
+
+.rail-item {
+  height: 42px !important;
+  border-radius: 8px !important;
+  margin-bottom: 8px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #323130 !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+}
+
+.rail-item.active {
+  background: #E5F1FB !important;
+  color: #0078D4 !important;
+}
+
+.outlook-folders {
+  background: #FAFAFA !important;
+  border-right: 1px solid #E1E4E8 !important;
+  padding: 16px 12px !important;
+}
+
+.folder-heading {
+  color: #605E5C !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  font-size: 11px !important;
+  font-weight: 900 !important;
   margin-bottom: 12px !important;
 }
 
-.mail-subject-main {
-  font-size: 24px !important;
-  line-height: 1.1 !important;
-  color: #003C64 !important;
+.folder-row {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 9px 10px !important;
+  border-radius: 8px !important;
+  color: #323130 !important;
+  font-size: 13px !important;
+  margin-bottom: 4px !important;
+}
+
+.folder-row.active {
+  background: #DDEEFF !important;
+  color: #004578 !important;
   font-weight: 900 !important;
-  margin-bottom: 6px !important;
 }
 
-.mail-meta {
+.folder-row strong {
   font-size: 12px !important;
-  color: #646464 !important;
+  color: #0078D4 !important;
 }
 
-.mail-badge {
-  background: #7D0041 !important;
-  color: #ffffff !important;
-  border-radius: 999px !important;
-  padding: 7px 12px !important;
+.outlook-inbox {
+  background: #FFFFFF !important;
+  border-right: 1px solid #E1E4E8 !important;
+  padding: 14px 12px !important;
+  overflow: hidden !important;
+}
+
+.inbox-title-row {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-bottom: 12px !important;
+  color: #323130 !important;
+  font-size: 14px !important;
+}
+
+.inbox-title-row span {
+  color: #0078D4 !important;
+  font-size: 12px !important;
   font-weight: 800 !important;
+}
+
+.inbox-card {
+  position: relative !important;
+  border: 1px solid #E1E4E8 !important;
+  border-radius: 8px !important;
+  background: #FFFFFF !important;
+  padding: 12px !important;
+  margin-bottom: 10px !important;
+  min-height: 104px !important;
+}
+
+.inbox-card.active {
+  border-left: 5px solid #0078D4 !important;
+  background: #F3F9FE !important;
+  box-shadow: 0 8px 18px rgba(0, 120, 212, 0.10) !important;
+}
+
+.mail-from {
+  color: #201F1E !important;
+  font-size: 14px !important;
+  font-weight: 900 !important;
+  margin-bottom: 4px !important;
+}
+
+.mail-subject {
+  color: #323130 !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  margin-bottom: 5px !important;
+}
+
+.mail-preview {
+  color: #605E5C !important;
   font-size: 12px !important;
-  white-space: nowrap !important;
-}
-
-.mail-body {
-  font-size: 15px !important;
   line-height: 1.28 !important;
-  color: #333333 !important;
+  padding-right: 8px !important;
 }
 
-.mail-body p {
+.mail-time {
+  position: absolute !important;
+  right: 10px !important;
+  top: 10px !important;
+  color: #605E5C !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+}
+
+.outlook-reading-pane {
+  background: #FFFFFF !important;
+  padding: 18px 22px !important;
+  overflow: hidden !important;
+}
+
+.reading-header {
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  gap: 18px !important;
+  border-bottom: 1px solid #E1E4E8 !important;
+  padding-bottom: 14px !important;
+  margin-bottom: 14px !important;
+}
+
+.reading-subject {
+  color: #201F1E !important;
+  font-size: 25px !important;
+  line-height: 1.08 !important;
+  font-weight: 900 !important;
   margin-bottom: 8px !important;
 }
 
-.outlook-action-row {
-  display: grid !important;
-  grid-template-columns: 1fr auto !important;
-  gap: 14px !important;
-  align-items: center !important;
-  margin-top: 12px !important;
+.reading-meta {
+  color: #605E5C !important;
+  font-size: 12px !important;
+  line-height: 1.35 !important;
 }
 
-.outlook-explain {
-  background: var(--soft) !important;
-  border-left: 6px solid var(--sonova-blue) !important;
-  border-radius: 16px !important;
-  padding: 12px 16px !important;
-  font-size: 16px !important;
-  line-height: 1.3 !important;
-  color: var(--sonova-navy) !important;
-}
-
-.outlook-action-row .slide-link {
-  margin-top: 0 !important;
+.reading-actions {
+  display: flex !important;
+  gap: 8px !important;
   white-space: nowrap !important;
 }
 
-.outlook-prompt {
-  margin-top: 10px !important;
-  font-size: 13px !important;
-  line-height: 1.22 !important;
-  max-height: 150px !important;
-  min-height: 0 !important;
-  padding: 16px !important;
-  border-radius: 18px !important;
-  overflow: auto !important;
+.reading-body {
+  color: #323130 !important;
+  font-size: 15px !important;
+  line-height: 1.32 !important;
+  max-height: 205px !important;
+  overflow: hidden !important;
 }
 
-@media (max-width: 980px) {
-  .outlook-slide {
+.reading-body p {
+  margin-bottom: 9px !important;
+}
+
+.reply-draft {
+  margin-top: 12px !important;
+  border: 1px solid #C7E0F4 !important;
+  border-left: 6px solid #0078D4 !important;
+  border-radius: 10px !important;
+  background: #F3F9FE !important;
+  padding: 12px 14px !important;
+}
+
+.reply-title {
+  color: #004578 !important;
+  font-size: 13px !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.8px !important;
+  margin-bottom: 6px !important;
+}
+
+.reply-draft p {
+  color: #323130 !important;
+  font-size: 13px !important;
+  line-height: 1.32 !important;
+  margin: 0 !important;
+}
+
+.outlook-bottom-grid {
+  display: grid !important;
+  grid-template-columns: 0.95fr 1.05fr !important;
+  gap: 14px !important;
+  align-items: stretch !important;
+  margin-top: 12px !important;
+}
+
+.outlook-final-call {
+  border-left: 6px solid var(--sonova-blue) !important;
+  background: #FFFFFF !important;
+  border-radius: 14px !important;
+  padding: 14px 16px !important;
+  color: var(--sonova-navy) !important;
+  font-size: 16px !important;
+  line-height: 1.35 !important;
+  border-top: 1px solid #E1E4E8 !important;
+  border-right: 1px solid #E1E4E8 !important;
+  border-bottom: 1px solid #E1E4E8 !important;
+}
+
+.outlook-mini-prompt {
+  margin: 0 !important;
+  max-height: 118px !important;
+  min-height: 118px !important;
+  overflow: hidden !important;
+  border-radius: 14px !important;
+  padding: 14px 16px !important;
+  font-size: 13px !important;
+  line-height: 1.22 !important;
+  background: #050505 !important;
+  color: #FFFFFF !important;
+}
+
+@media (max-width: 1100px) {
+  .outlook-real {
     overflow: auto !important;
   }
 
-  .outlook-content {
+  .outlook-real-content {
     height: auto !important;
     overflow: visible !important;
   }
 
-  .outlook-sim {
-    grid-template-columns: 1fr !important;
+  .outlook-window {
     height: auto !important;
     min-height: 0 !important;
     max-height: none !important;
   }
 
-  .outlook-action-row {
+  .outlook-grid {
     grid-template-columns: 1fr !important;
+    height: auto !important;
+    min-height: 0 !important;
   }
 
-  .outlook-prompt {
+  .outlook-appbar {
+    grid-template-columns: 1fr !important;
+    height: auto !important;
+    padding: 12px !important;
+  }
+
+  .outlook-bottom-grid,
+  .outlook-headline {
+    grid-template-columns: 1fr !important;
+    display: grid !important;
+  }
+
+  .outlook-mini-prompt {
     max-height: none !important;
+    min-height: 0 !important;
   }
 }
